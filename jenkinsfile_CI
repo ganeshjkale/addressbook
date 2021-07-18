@@ -64,7 +64,7 @@ pipeline {
 
                 echo "To test the code"
 
-                mvv test
+                mvn test
 
                 """
 
