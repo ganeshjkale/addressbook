@@ -28,7 +28,7 @@ pipeline {
 
                 echo "Perform Validate"
 
-                mvn Validate
+                mvn validate
 
                 """
 
