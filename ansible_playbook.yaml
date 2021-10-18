@@ -15,6 +15,9 @@
       copy:
         src: /home/ec2-user/jenkins/workspace/web_container/addressbook/pom.xml
         dest: /home/ec2-user/web_docker_path/
+       copy:
+        src: /home/ec2-user/jenkins/workspace/web_container/addressbook/Dockerfile
+        dest: /home/ec2-user/web_docker_path/
 
     - name: Build a Docker image using webapp.war file
       docker_image:
