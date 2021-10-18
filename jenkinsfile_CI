@@ -1,93 +1,47 @@
 pipeline {
-
-    agent{
-
-        label 'linux-ec2'
-
-    }
-
-    tools {
-        git 'git'
-   
-
-    }
-
-
-
+    agent none
     stages{
-
-        stage ('Code Validate'){
+        stage ('Code Build'){
 
             steps {
+                sh """                
+                /usr/sbin/ifconfig
 
-
-
-                sh """
-
+                cd /home/ec2-user/jenkins/workspace/web_container/addressbook
                 echo "Perform Validate"
-
+                echo "current path = `pwd`"
                 mvn validate
-
-                """
-
-
-
-            }
-
-        }
-
-        stage ('Code Compilation'){
-
-            steps {
-
-                sh """
-
-                echo "Perform Compilation"
-
                 mvn compile
-
-                """
-
-            }
-
-        }
-
-
-
-        stage ('Code Test'){
-
-            steps{
-
-                sh """
-
-                echo "To test the code"
-
                 mvn test
-
-                """
-
-            }
-
-        }
-
-
-
-        stage ('Code Package'){
-
-            steps{
-
-                sh """
-
-                echo "Create the package"
-
                 mvn package
-
                 """
-
+            }
+            agent{
+                label 'compile'
             }
 
+            tools {
+                git 'git'
+            }
+        }
+        
+        stage ('deployment'){
+            agent {
+                label 'compile'
+            }
+            steps{
+                sh """
+         
+                echo "Run ansible playbook"                
+                /usr/sbin/ifconfig
+
+                """
+                ansiblePlaybook colorized: true, credentialsId: 'ec2-user', disableHostKeyChecking: true, playbook: '/home/ec2-user/jenkins/workspace/web_container/addressbook/ansible_playbook.yaml'
+            }
+            
         }
 
     }
 
 }
+
