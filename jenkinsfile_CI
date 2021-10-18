@@ -1,8 +1,24 @@
 pipeline {
-   agent {
+    agent none
+    stages{
+
+        stage ('Git clone') {
+            steps {
+                sh """
+                rm -rf addressbook
+                git clone https://github.com/ganeshjkale/addressbook.git
+                echo "current path = `pwd`"
+                """   
+            }
+             agent{
                 label 'compile'
             }
-    stages{
+
+            tools {
+                git 'git'
+            }
+        }
+
         stage ('Code Build'){
 
             steps {
@@ -18,7 +34,9 @@ pipeline {
                 mvn package
                 """
             }
-            
+            agent{
+                label 'compile'
+            }
 
             tools {
                 git 'git'
@@ -26,10 +44,12 @@ pipeline {
         }
         
         stage ('deployment'){
-           
+            agent {
+                label 'compile'
+            }
             steps{
                 sh """
-         
+                cd /home/ec2-user/jenkins/workspace/web_container/addressbook
                 echo "Run ansible playbook"                
                 /usr/sbin/ifconfig
 
