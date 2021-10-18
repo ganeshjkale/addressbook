@@ -1,5 +1,7 @@
 pipeline {
-    agent compile
+   agent {
+                label 'compile'
+            }
     stages{
         stage ('Code Build'){
 
