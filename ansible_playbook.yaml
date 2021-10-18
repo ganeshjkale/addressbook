@@ -3,7 +3,7 @@
 
 - name: Playbook to build and run Docker
   hosts: localhost
-  become: flase
+  become: true
   gather_facts: false
 
   tasks:
