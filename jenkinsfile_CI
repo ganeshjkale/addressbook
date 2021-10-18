@@ -2,15 +2,13 @@ pipeline {
 
     agent{
 
-        label 'master'
+        label 'linux-ec2'
 
     }
 
     tools {
-
-        maven 'maven'
-
-        jdk 'java'
+        git 'git'
+   
 
     }
 
