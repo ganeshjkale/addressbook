@@ -3,17 +3,17 @@
 
 - name: Playbook to build and run Docker
   hosts: localhost
-  become: true
+  become: flase
   gather_facts: false
 
   tasks:
     - name: copying file with playbook
       become: true
       copy:
-        src: jenkins/workspace/web_container/addressbook/target
+        src: /home/ec2-user/jenkins/workspace/web_container/addressbook/target
         dest: /home/ec2-user/web_docker_path/
       copy:
-        src: jenkins/workspace/web_container/addressbook/pom.xml
+        src: /home/ec2-user/jenkins/workspace/web_container/addressbook/pom.xml
         dest: /home/ec2-user/web_docker_path/
 
     - name: Build a Docker image using webapp.war file
