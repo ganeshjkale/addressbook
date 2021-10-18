@@ -1,0 +1,35 @@
+---
+#Ansible Playbook to build and run a Docker containers
+
+- name: Playbook to build and run Docker
+  hosts: localhost
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: copying file with playbook
+      become: true
+      copy:
+        src: jenkins/workspace/web_container/addressbook/target
+        dest: /home/ec2-user/web_docker_path/
+      copy:
+        src: jenkins/workspace/web_container/addressbook/pom.xml
+        dest: /home/ec2-user/web_docker_path/
+
+    - name: Build a Docker image using webapp.war file
+      docker_image:
+        name: simple-docker-image
+        build:
+          path: /home/ec2-user/web_docker_path
+          pull: false
+        source: build
+
+    - name: Run Docker container using simple-docker-image
+      docker_container:
+        name: simple-docker-container
+        image: maventest:1.0
+        state: started
+        recreate: yes
+        detach: true
+        ports:
+          - "8080:8080"
