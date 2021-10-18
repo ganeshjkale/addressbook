@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent compile
     stages{
         stage ('Code Build'){
 
@@ -16,9 +16,7 @@ pipeline {
                 mvn package
                 """
             }
-            agent{
-                label 'compile'
-            }
+            
 
             tools {
                 git 'git'
@@ -26,9 +24,7 @@ pipeline {
         }
         
         stage ('deployment'){
-            agent {
-                label 'compile'
-            }
+           
             steps{
                 sh """
          
