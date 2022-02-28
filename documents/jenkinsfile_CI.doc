@@ -1,0 +1,64 @@
+pipeline {
+    agent none
+    stages{
+
+        stage ('Git clone') {
+            steps {
+                sh """
+                rm -rf addressbook
+                git clone https://github.com/ganeshjkale/addressbook.git
+                echo "current path = `pwd`"
+                """   
+            }
+             agent{
+                label 'compile'
+            }
+
+            tools {
+                git 'git'
+            }
+        }
+
+        stage ('Code Build'){
+
+            steps {
+                sh """                
+                /usr/sbin/ifconfig
+
+                cd /home/ec2-user/jenkins/workspace/web_container/addressbook
+                echo "Perform Validate"
+                echo "current path = `pwd`"
+                mvn validate
+                mvn compile
+                mvn test
+                mvn package
+                """
+            }
+            agent{
+                label 'compile'
+            }
+
+            tools {
+                git 'git'
+            }
+        }
+        
+        stage ('deployment'){
+            agent {
+                label 'compile'
+            }
+            steps{
+                sh """
+                cd /home/ec2-user/jenkins/workspace/web_container/addressbook
+                echo "Run ansible playbook"                
+                /usr/sbin/ifconfig
+
+                """
+                ansiblePlaybook colorized: true, credentialsId: 'ec2-user', disableHostKeyChecking: true, playbook: '/home/ec2-user/jenkins/workspace/web_container/addressbook/ansible_playbook.yaml'
+            }
+            
+        }
+
+    }
+
+}

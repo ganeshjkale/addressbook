@@ -1,0 +1,296 @@
+Started by user Ganesh Kale
+[Pipeline] Start of Pipeline
+[Pipeline] stage
+[Pipeline] { (Git clone)
+[Pipeline] node
+Running on compile in /home/ec2-user/jenkins/workspace/web_container
+[Pipeline] {
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ rm -rf addressbook
++ git clone https://github.com/ganeshjkale/addressbook.git
+Cloning into 'addressbook'...
+++ pwd
++ echo 'current path = /home/ec2-user/jenkins/workspace/web_container'
+current path = /home/ec2-user/jenkins/workspace/web_container
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Code Build)
+[Pipeline] node
+Running on compile in /home/ec2-user/jenkins/workspace/web_container
+[Pipeline] {
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ /usr/sbin/ifconfig
+docker0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        inet6 fe80::42:92ff:fe36:7458  prefixlen 64  scopeid 0x20<link>
+        ether 02:42:92:36:74:58  txqueuelen 0  (Ethernet)
+        RX packets 9013  bytes 1571905 (1.4 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 13011  bytes 101624250 (96.9 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9001
+        inet 172.31.19.148  netmask 255.255.240.0  broadcast 172.31.31.255
+        inet6 fe80::8d9:c6ff:fe94:a4c9  prefixlen 64  scopeid 0x20<link>
+        ether 0a:d9:c6:94:a4:c9  txqueuelen 1000  (Ethernet)
+        RX packets 2086701  bytes 2940839699 (2.7 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 254996  bytes 53276006 (50.8 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 115  bytes 20652 (20.1 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 115  bytes 20652 (20.1 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+veth71b2f31: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet6 fe80::7883:43ff:fe85:dd  prefixlen 64  scopeid 0x20<link>
+        ether 7a:83:43:85:00:dd  txqueuelen 0  (Ethernet)
+        RX packets 2766  bytes 598135 (584.1 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 3885  bytes 31256935 (29.8 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
++ cd /home/ec2-user/jenkins/workspace/web_container/addressbook
++ echo 'Perform Validate'
+Perform Validate
+++ pwd
++ echo 'current path = /home/ec2-user/jenkins/workspace/web_container/addressbook'
+current path = /home/ec2-user/jenkins/workspace/web_container/addressbook
++ mvn validate
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Vaadin Addressbook example 2.0
+[INFO] ------------------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 0.139s
+[INFO] Finished at: Mon Oct 18 13:11:47 UTC 2021
+[INFO] Final Memory: 4M/15M
+[INFO] ------------------------------------------------------------------------
++ mvn compile
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Vaadin Addressbook example 2.0
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:resources (default-resources) @ addressbook ---
+[debug] execute contextualize
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/ec2-user/jenkins/workspace/web_container/addressbook/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ addressbook ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 4 source files to /home/ec2-user/jenkins/workspace/web_container/addressbook/target/classes
+[INFO] /home/ec2-user/jenkins/workspace/web_container/addressbook/src/main/java/com/vaadin/tutorial/addressbook/ContactForm.java: Some input files use or override a deprecated API.
+[INFO] /home/ec2-user/jenkins/workspace/web_container/addressbook/src/main/java/com/vaadin/tutorial/addressbook/ContactForm.java: Recompile with -Xlint:deprecation for details.
+[INFO] /home/ec2-user/jenkins/workspace/web_container/addressbook/src/main/java/com/vaadin/tutorial/addressbook/backend/ContactService.java: /home/ec2-user/jenkins/workspace/web_container/addressbook/src/main/java/com/vaadin/tutorial/addressbook/backend/ContactService.java uses unchecked or unsafe operations.
+[INFO] /home/ec2-user/jenkins/workspace/web_container/addressbook/src/main/java/com/vaadin/tutorial/addressbook/backend/ContactService.java: Recompile with -Xlint:unchecked for details.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 3.251s
+[INFO] Finished at: Mon Oct 18 13:11:52 UTC 2021
+[INFO] Final Memory: 13M/31M
+[INFO] ------------------------------------------------------------------------
++ mvn test
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Vaadin Addressbook example 2.0
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:resources (default-resources) @ addressbook ---
+[debug] execute contextualize
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/ec2-user/jenkins/workspace/web_container/addressbook/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ addressbook ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:testResources (default-testResources) @ addressbook ---
+[debug] execute contextualize
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/ec2-user/jenkins/workspace/web_container/addressbook/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ addressbook ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.10:test (default-test) @ addressbook ---
+[INFO] No tests to run.
+[INFO] Surefire report directory: /home/ec2-user/jenkins/workspace/web_container/addressbook/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+
+Results :
+
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2.342s
+[INFO] Finished at: Mon Oct 18 13:11:56 UTC 2021
+[INFO] Final Memory: 7M/19M
+[INFO] ------------------------------------------------------------------------
++ mvn package
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Vaadin Addressbook example 2.0
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:resources (default-resources) @ addressbook ---
+[debug] execute contextualize
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/ec2-user/jenkins/workspace/web_container/addressbook/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ addressbook ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:testResources (default-testResources) @ addressbook ---
+[debug] execute contextualize
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/ec2-user/jenkins/workspace/web_container/addressbook/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ addressbook ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.10:test (default-test) @ addressbook ---
+[INFO] No tests to run.
+[INFO] Surefire report directory: /home/ec2-user/jenkins/workspace/web_container/addressbook/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+
+Results :
+
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-war-plugin:2.1.1:war (default-war) @ addressbook ---
+[INFO] Packaging webapp
+[INFO] Assembling webapp [addressbook] in [/home/ec2-user/jenkins/workspace/web_container/addressbook/target/addressbook-2.0]
+[INFO] Processing war project
+[INFO] Webapp assembled in [151 msecs]
+[INFO] Building war: /home/ec2-user/jenkins/workspace/web_container/addressbook/target/addressbook-2.0.war
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 4.187s
+[INFO] Finished at: Mon Oct 18 13:12:01 UTC 2021
+[INFO] Final Memory: 8M/20M
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (deployment)
+[Pipeline] node
+Running on compile in /home/ec2-user/jenkins/workspace/web_container
+[Pipeline] {
+[Pipeline] sh
++ cd /home/ec2-user/jenkins/workspace/web_container/addressbook
++ echo 'Run ansible playbook'
+Run ansible playbook
++ /usr/sbin/ifconfig
+docker0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        inet6 fe80::42:92ff:fe36:7458  prefixlen 64  scopeid 0x20<link>
+        ether 02:42:92:36:74:58  txqueuelen 0  (Ethernet)
+        RX packets 9016  bytes 1572013 (1.4 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 13014  bytes 101624388 (96.9 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 9001
+        inet 172.31.19.148  netmask 255.255.240.0  broadcast 172.31.31.255
+        inet6 fe80::8d9:c6ff:fe94:a4c9  prefixlen 64  scopeid 0x20<link>
+        ether 0a:d9:c6:94:a4:c9  txqueuelen 1000  (Ethernet)
+        RX packets 2088301  bytes 2941700959 (2.7 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 256254  bytes 54711042 (52.1 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 115  bytes 20652 (20.1 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 115  bytes 20652 (20.1 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+veth71b2f31: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet6 fe80::7883:43ff:fe85:dd  prefixlen 64  scopeid 0x20<link>
+        ether 7a:83:43:85:00:dd  txqueuelen 0  (Ethernet)
+        RX packets 2769  bytes 598285 (584.2 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 3888  bytes 31257073 (29.8 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+[Pipeline] ansiblePlaybook
+[web_container] $ ansible-playbook /home/ec2-user/jenkins/workspace/web_container/addressbook/ansible_playbook.yaml
+[0;35m[DEPRECATION WARNING]: Ansible will require Python 3.8 or newer on the [0m
+[0;35mcontroller starting with Ansible 2.12. Current version: 3.7.10 (default, Jun  3[0m
+[0;35m 2021, 00:02:01) [GCC 7.3.1 20180712 (Red Hat 7.3.1-13)]. This feature will be [0m
+[0;35mremoved from ansible-core in version 2.12. Deprecation warnings can be disabled[0m
+[0;35m by setting deprecation_warnings=False in ansible.cfg.[0m
+[1;35m[WARNING]: No inventory was parsed, only implicit localhost is available[0m
+[1;35m[WARNING]: provided hosts list is empty, only localhost is available. Note that[0m
+[1;35mthe implicit localhost does not match 'all'[0m
+[1;35m[WARNING]: While constructing a mapping from /home/ec2-user/jenkins/workspace/w[0m
+[1;35meb_container/addressbook/ansible_playbook.yaml, line 10, column 7, found a[0m
+[1;35mduplicate dict key (copy). Using last defined value only.[0m
+
+PLAY [Playbook to build and run Docker] ****************************************
+
+TASK [copying file with playbook] **********************************************
+[0;32mok: [localhost][0m
+
+TASK [Build a Docker image using webapp.war file] ******************************
+[0;32mok: [localhost][0m
+
+TASK [Run Docker container using simple-docker-image] **************************
+[0;35m[DEPRECATION WARNING]: The container_default_behavior option will change its [0m
+[0;35mdefault value from "compatibility" to "no_defaults" in community.docker 2.0.0. [0m
+[0;35mTo remove this warning, please specify an explicit value for it now. This [0m
+[0;35mfeature will be removed from community.docker in version 2.0.0. Deprecation [0m
+[0;35mwarnings can be disabled by setting deprecation_warnings=False in ansible.cfg.[0m
+[0;33mchanged: [localhost][0m
+
+PLAY RECAP *********************************************************************
+[0;33mlocalhost[0m                  : [0;32mok=3   [0m [0;33mchanged=1   [0m unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] End of Pipeline
+Finished: SUCCESS
